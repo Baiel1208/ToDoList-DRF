@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 
     #rest
     'rest_framework',
-    # 'django_filters',
+    'django_filters',
 
     #apps
     'todolist',
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     # 'django.contrib.admin',
 
     # docs
-    # 'drf_yasg'
+    'drf_yasg',
 ]
 
 REST_FRAMEWORK = {
@@ -65,7 +65,7 @@ REST_FRAMEWORK = {
     ],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     # 'PAGE_SIZE': 10,
-    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }  
 
 MIDDLEWARE = [

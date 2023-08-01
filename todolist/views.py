@@ -1,6 +1,8 @@
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.generics import DestroyAPIView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 
 from .models import ToDoList
 from .serializers import ToDoListSerializer
@@ -16,6 +18,9 @@ class ToDoListAPIView(mixins.ListModelMixin,
 
     queryset = ToDoList.objects.all()
     serializer_class = ToDoListSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['title', 'is_completed',]
+    search_fields = ['title', 'is_completed', 'user__username']
     
     # def get_serializer_class(self):
     #     if self.action in ('create', ):
