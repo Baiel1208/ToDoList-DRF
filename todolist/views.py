@@ -29,37 +29,19 @@ class ToDoListAPIView(mixins.ListModelMixin,
 
 
     def get_permissions(self):
-        if self.action in ('create','update', 'destroy'):
+        if self.action in ('create','update', 'partial_update', 'destroy'):
             return (ToDoListPermission(), )
         return (AllowAny(), )
-    
-    # def get_serializer_class(self):
-    #     if self.action in ('create', ):
-    #         return UserRegisterSerializer
-    #     if self.action in ('retrieve', ):
-    #         return UserDetailSerializer
-            
-    #     return ToDoSerializer
 
 
 class ToDoListAllDeleteAPIView(APIView):
     def delete(self, request, *args, **kwargs):
         todos = ToDoList.objects.filter(user=request.user)
         todos.delete()
-        return Response({'delete': 'Все задания удалены'}, status=status.HTTP_204_NO_CONTENT)
-# class ToDoListAllDeleteAPIView(DestroyAPIView):
-#     queryset = ToDoList.objects.all()
-#     serializer_class = ToDoListSerializer
-#     permission_classes = [IsAuthenticated]
-#     lookup_field = 'id'
+        return Response({'delete': 'Все задачи удалены'}, status=status.HTTP_204_NO_CONTENT)
 
 
-    # def get_queryset(self):
-    #     user = self.request.user
-    #     return ToDoList.objects.filter(user=user)
-
-    # def perform_destroy(self, instance):
-    #     instance.delete()
-    # def destroy(self, request, *args, **kwargs):
-    #     super().destroy(request, *args, **kwargs)
-    #     return Response({'delete' : 'Задачи успешно удалены'}, status=status.HTTP_200_OK)
+    def get_permissions(self):
+        if self.action in ('destroy', ):
+            return (ToDoListPermission(), )
+        return (AllowAny(), )
